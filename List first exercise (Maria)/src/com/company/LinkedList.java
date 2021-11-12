@@ -5,10 +5,8 @@ import com.sun.security.jgss.GSSUtil;
 
 import java.util.Iterator;
 
-public class LinkedList<T>  { // implements Iterable depois de fazeres os metodos da maria
+public class LinkedList<T> { // implements Iterable depois de fazeres os metodos da maria
     private Node<T> root = null;
-
-
 
 
     public static void main(String[] args) {
@@ -19,7 +17,7 @@ public class LinkedList<T>  { // implements Iterable depois de fazeres os metodo
         values.add(1);
         values.add(2);
         values.add(3);
-     //   values.add(4);
+        //   values.add(4);
 
         System.out.println("");
 
@@ -27,36 +25,35 @@ public class LinkedList<T>  { // implements Iterable depois de fazeres os metodo
             System.out.println(values.get(0));
             System.out.println(values.get(1));
             System.out.println(values.get(7));
-        }
-        catch (MyNullPointerException e) {
+        } catch (MyNullPointerException e) {
             System.out.println(e.getMessage());
         }
 
         System.out.println("");
 
         try {
-            values.delete(1);
+            //     values.delete(1);
 
             System.out.println(values.get(0));
             System.out.println(values.get(1));
             System.out.println(values.get(2));
-        }
-        catch (MyNullPointerException e) {
+        } catch (MyNullPointerException e) {
             System.out.println(e.getMessage());
         }
 
         System.out.println("");
 
 
-        values.add(9, 1);
+     //   values.add(9, 1);
+
+        values.deleteValue(1);
 
         try {
             System.out.println(values.get(0));
             System.out.println(values.get(1));
             System.out.println(values.get(2));
             System.out.println(values.get(3));
-        }
-        catch (MyNullPointerException e) {
+        } catch (MyNullPointerException e) {
             System.out.println(e.getMessage());
         }
 
@@ -86,35 +83,33 @@ public class LinkedList<T>  { // implements Iterable depois de fazeres os metodo
     // -----------------------------------------------------------------------
 
 
-   public void add(T value) {
+    public void add(T value) {
         if (root == null) {
             root = new Node<>(value);
             System.out.println(root.value);
-        }
-            else {
-                Node<T> temp = root;
+        } else {
+            Node<T> temp = root;
 
-                while (temp.next != null) {
-                    temp = temp.next;
+            while (temp.next != null) {
+                temp = temp.next;
 
-                }
-                temp.next = new Node<>(value);
-                System.out.println(temp.next.value);
-
-
-                }
             }
+            temp.next = new Node<>(value);
+            System.out.println(temp.next.value);
 
 
+        }
+    }
 
-    public T get(int index) throws MyNullPointerException{
+
+    public T get(int index) throws MyNullPointerException {
 
         Node<T> lastNext = root;
         int count = 0;
 
         while (count != index) {
             lastNext = lastNext.next;
-            count ++;
+            count++;
 
             if (lastNext == null) {
                 throw new MyNullPointerException();
@@ -127,7 +122,7 @@ public class LinkedList<T>  { // implements Iterable depois de fazeres os metodo
     }
 
 
-    public void delete(int index) throws MyNullPointerException {
+    public void deleteIndex(int index) throws MyNullPointerException {
 
         Node<T> ant = root;
         Node<T> temp = root;
@@ -157,7 +152,7 @@ public class LinkedList<T>  { // implements Iterable depois de fazeres os metodo
 
         if (index == 0) {
             root = new Node<>(value);
-            System.out.println(ant.value);
+            root.next = temp;
         }
 
         while (count != index) {
@@ -167,31 +162,35 @@ public class LinkedList<T>  { // implements Iterable depois de fazeres os metodo
             count++;
         }
 
-        if (count == index) {
-
-            Node<T> newNode;
-
-            newNode = new Node<>(value);// ant.next AGORA É O NOVO NODE
-            ant.next = newNode;
-            ant.next.next = temp;
-
-
-
-            //  ant.next = new Node<>(value);
-            //   temp = ant.next.next;
-
-
-
-
-
-        }
-      //  System.out.println(ant.value);
-   //  System.out.println(ant.next.value);
-     //   System.out.println(temp.value);
+        ant.next = new Node<>(value);
+        ant.next.next = temp;
 
     }
 
+
+    public void deleteValue(T value) {
+
+      if (root == null) {
+          return;
+      }
+
+      if (root.value == value) {
+          root = root.next;
+          return;
+      }
+
+      Node<T> ant = root;
+
+      while (ant.next != null) {
+          if (ant.next.value == value) {
+              ant.next = ant.next.next;
+              return;
+          }
+          ant = ant.next;
+      }
+
     }
+
 
 
   /*  metodo add (value) (já)
@@ -201,5 +200,5 @@ public class LinkedList<T>  { // implements Iterable depois de fazeres os metodo
             delete (value)
 */
 
-
+}
 
