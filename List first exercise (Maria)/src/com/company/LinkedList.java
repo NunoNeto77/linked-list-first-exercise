@@ -5,7 +5,7 @@ import com.sun.security.jgss.GSSUtil;
 
 import java.util.Iterator;
 
-public class LinkedList<T> { // implements Iterable depois de fazeres os metodos da maria
+public class LinkedList<T> implements Iterable<T> {
     private Node<T> root = null;
 
 
@@ -19,9 +19,9 @@ public class LinkedList<T> { // implements Iterable depois de fazeres os metodos
         values.add(3);
         //   values.add(4);
 
-        System.out.println("");
+     //   System.out.println("");
 
-        try {
+    /*    try {
             System.out.println(values.get(0));
             System.out.println(values.get(1));
             System.out.println(values.get(7));
@@ -46,7 +46,7 @@ public class LinkedList<T> { // implements Iterable depois de fazeres os metodos
 
      //   values.add(9, 1);
 
-        values.deleteValue(1);
+      //  values.deleteValue(1);
 
         try {
             System.out.println(values.get(0));
@@ -55,20 +55,31 @@ public class LinkedList<T> { // implements Iterable depois de fazeres os metodos
             System.out.println(values.get(3));
         } catch (MyNullPointerException e) {
             System.out.println(e.getMessage());
+        } */
+
+        // ITERATOR TESTING
+
+        for (Object value : values) {
+            System.out.println(value);
         }
 
+
     }
-/*
+
+    // -------------------------------------- ITERATOR -----------------------------------------------------
+
+    // -----------------------------------------------------------------------
+
     @Override
     public Iterator<T> iterator() {
         return new Iterator<T>() {
 
+            Node<T> current = root;
+
             @Override
             public boolean hasNext() {
-              //  Node<T>
-
-                 if () {
-
+                if (current != null) {
+                    return true;
                 }
 
                 return false;
@@ -76,17 +87,24 @@ public class LinkedList<T> { // implements Iterable depois de fazeres os metodos
 
             @Override
             public T next() {
+                if (hasNext()) {
+                    T temp = current.value;
+                    current = current.next;
+                    return temp;
+                }
+
                 return null;
             }
+
+
         };
-    }  */
-    // -----------------------------------------------------------------------
+    }
 
 
     public void add(T value) {
         if (root == null) {
             root = new Node<>(value);
-            System.out.println(root.value);
+
         } else {
             Node<T> temp = root;
 
@@ -95,11 +113,10 @@ public class LinkedList<T> { // implements Iterable depois de fazeres os metodos
 
             }
             temp.next = new Node<>(value);
-            System.out.println(temp.next.value);
-
 
         }
     }
+
 
 
     public T get(int index) throws MyNullPointerException {
